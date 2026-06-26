@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>NestingPro — Laser CAM Software by IMWS</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --pri:#0ea5e9;--prd:#0284c7;--acc:#10b981;--dark:#0f172a;--txt:#1e293b;
+  --txt2:#64748b;--txt3:#94a3b8;--bg:#f8fafc;--sur:#ffffff;--bdr:#e2e8f0;
+}
+body{font-family:'Segoe UI',system-ui,sans-serif;color:var(--txt);background:var(--bg);overflow-x:hidden;}
+a{text-decoration:none;color:inherit;}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(255,255,255,0.95);backdrop-filter:blur(10px);border-bottom:1px solid var(--bdr);padding:0 5%;}
+.nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;height:64px;gap:32px;}
+.nav-logo{display:flex;align-items:center;gap:10px;}
+.nav-logo svg{width:36px;height:36px;}
+.nav-logo span{font-size:18px;font-weight:700;color:var(--pri);}
+.nav-links{display:flex;gap:24px;margin-left:auto;}
+.nav-links a{font-size:13px;font-weight:500;color:var(--txt2);transition:color 0.2s;}
+.nav-links a:hover{color:var(--pri);}
+.nav-cta{background:var(--pri);color:#fff!important;padding:8px 20px;border-radius:8px;font-size:13px;font-weight:600;}
+.nav-cta:hover{background:var(--prd)!important;}
+
+/* ── HERO ── */
+.hero{min-height:100vh;background:linear-gradient(135deg,#0f172a 0%,#1e3a5f 50%,#0f172a 100%);display:flex;align-items:center;padding:80px 5% 60px;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%230ea5e9' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");opacity:0.5;}
+.hero-inner{max-width:1200px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;position:relative;z-index:1;}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(14,165,233,0.15);border:1px solid rgba(14,165,233,0.3);color:#38bdf8;padding:5px 14px;border-radius:20px;font-size:11px;font-weight:600;letter-spacing:1px;margin-bottom:20px;}
+.hero h1{font-size:52px;font-weight:800;color:#fff;line-height:1.1;margin-bottom:20px;}
+.hero h1 span{color:#38bdf8;}
+.hero p{font-size:17px;color:#94a3b8;line-height:1.7;margin-bottom:32px;}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;}
+.btn-hero{padding:14px 28px;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;transition:all 0.2s;border:none;display:inline-flex;align-items:center;gap:8px;}
+.btn-primary{background:var(--pri);color:#fff;}
+.btn-primary:hover{background:var(--prd);transform:translateY(-1px);box-shadow:0 8px 20px rgba(14,165,233,0.3);}
+.btn-secondary{background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.2);}
+.btn-secondary:hover{background:rgba(255,255,255,0.15);}
+.hero-stats{display:flex;gap:32px;margin-top:40px;padding-top:32px;border-top:1px solid rgba(255,255,255,0.1);}
+.stat{text-align:center;}
+.stat-num{font-size:28px;font-weight:800;color:#fff;}
+.stat-lbl{font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:1px;}
+.hero-preview{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:24px;backdrop-filter:blur(10px);}
+.preview-header{display:flex;align-items:center;gap:8px;margin-bottom:16px;}
+.dot{width:10px;height:10px;border-radius:50%;}
+.dot-r{background:#ef4444;}.dot-y{background:#f59e0b;}.dot-g{background:#10b981;}
+.preview-title{color:#64748b;font-size:11px;margin-left:auto;}
+.preview-svg-wrap{background:#0f172a;border-radius:10px;padding:16px;position:relative;overflow:hidden;}
+
+/* ── SECTIONS ── */
+section{padding:80px 5%;}
+.section-inner{max-width:1200px;margin:0 auto;}
+.section-badge{display:inline-block;background:var(--pri);color:#fff;padding:4px 14px;border-radius:20px;font-size:11px;font-weight:600;letter-spacing:1px;margin-bottom:12px;}
+.section-title{font-size:38px;font-weight:800;color:var(--txt);margin-bottom:16px;line-height:1.2;}
+.section-sub{font-size:16px;color:var(--txt2);max-width:600px;line-height:1.7;}
+.text-center{text-align:center;margin:0 auto;}
+
+/* ── FEATURES ── */
+.features-bg{background:var(--sur);}
+.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:48px;}
+.feat-card{background:var(--bg);border:1px solid var(--bdr);border-radius:14px;padding:28px;transition:all 0.2s;}
+.feat-card:hover{border-color:var(--pri);transform:translateY(-2px);box-shadow:0 8px 24px rgba(14,165,233,0.1);}
+.feat-icon{width:48px;height:48px;background:var(--pri);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:16px;}
+.feat-title{font-size:16px;font-weight:700;color:var(--txt);margin-bottom:8px;}
+.feat-desc{font-size:13px;color:var(--txt2);line-height:1.6;}
+
+/* ── HOW IT WORKS ── */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:48px;position:relative;}
+.steps::before{content:'';position:absolute;top:28px;left:12.5%;right:12.5%;height:2px;background:linear-gradient(to right,var(--pri),var(--acc));z-index:0;}
+.step{text-align:center;position:relative;z-index:1;}
+.step-num{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--pri),var(--acc));color:#fff;font-size:20px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;}
+.step-title{font-size:14px;font-weight:700;color:var(--txt);margin-bottom:6px;}
+.step-desc{font-size:12px;color:var(--txt2);line-height:1.5;padding:0 12px;}
+
+/* ── PRICING ── */
+.pricing-bg{background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);}
+.pricing-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;margin-top:48px;align-items:start;}
+.price-card{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:32px;color:#fff;position:relative;}
+.price-card.featured{background:var(--pri);border-color:var(--pri);transform:scale(1.05);}
+.price-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:#f59e0b;color:#000;padding:4px 16px;border-radius:20px;font-size:11px;font-weight:700;}
+.price-name{font-size:14px;font-weight:600;color:rgba(255,255,255,0.7);margin-bottom:8px;text-transform:uppercase;letter-spacing:1px;}
+.price-amt{font-size:48px;font-weight:800;margin-bottom:4px;}
+.price-per{font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:24px;}
+.price-features{list-style:none;margin-bottom:28px;}
+.price-features li{padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.1);font-size:13px;display:flex;align-items:center;gap:8px;}
+.price-features li::before{content:'✓';color:#10b981;font-weight:700;flex-shrink:0;}
+.btn-price{width:100%;padding:12px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;border:none;transition:all 0.2s;text-align:center;display:block;}
+.btn-price-white{background:#fff;color:var(--pri);}
+.btn-price-white:hover{background:#f0f9ff;}
+.btn-price-outline{background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.3);}
+.btn-price-outline:hover{background:rgba(255,255,255,0.1);}
+
+/* ── SERVICES ── */
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:48px;}
+.svc-card{background:var(--sur);border:1px solid var(--bdr);border-radius:14px;padding:28px;display:flex;gap:16px;align-items:flex-start;transition:all 0.2s;}
+.svc-card:hover{border-color:var(--pri);box-shadow:0 4px 16px rgba(14,165,233,0.08);}
+.svc-icon{font-size:32px;flex-shrink:0;}
+.svc-title{font-size:15px;font-weight:700;color:var(--txt);margin-bottom:6px;}
+.svc-desc{font-size:13px;color:var(--txt2);line-height:1.6;}
+
+/* ── TESTIMONIAL / TRUST ── */
+.trust-bg{background:var(--sur);}
+.trust-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:48px;}
+.trust-item{text-align:center;padding:24px;background:var(--bg);border-radius:12px;border:1px solid var(--bdr);}
+.trust-icon{font-size:32px;margin-bottom:12px;}
+.trust-title{font-size:14px;font-weight:700;color:var(--txt);margin-bottom:4px;}
+.trust-desc{font-size:12px;color:var(--txt2);}
+
+/* ── CTA ── */
+.cta-bg{background:linear-gradient(135deg,#0ea5e9 0%,#10b981 100%);}
+.cta-inner{max-width:700px;margin:0 auto;text-align:center;color:#fff;}
+.cta-inner h2{font-size:40px;font-weight:800;margin-bottom:16px;}
+.cta-inner p{font-size:16px;opacity:0.9;margin-bottom:32px;}
+.cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+.btn-cta-white{background:#fff;color:var(--pri);padding:14px 32px;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;border:none;transition:all 0.2s;}
+.btn-cta-white:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,0.2);}
+.btn-cta-outline{background:transparent;color:#fff;border:2px solid rgba(255,255,255,0.5);padding:14px 32px;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;transition:all 0.2s;}
+.btn-cta-outline:hover{background:rgba(255,255,255,0.1);}
+
+/* ── FOOTER ── */
+footer{background:#0f172a;color:#fff;padding:60px 5% 30px;}
+.footer-inner{max-width:1200px;margin:0 auto;}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px;}
+.footer-brand{display:flex;align-items:center;gap:10px;margin-bottom:16px;}
+.footer-brand span{font-size:18px;font-weight:700;color:var(--pri);}
+.footer-desc{font-size:13px;color:#64748b;line-height:1.7;margin-bottom:20px;}
+.footer-contact a{display:flex;align-items:center;gap:8px;font-size:13px;color:#64748b;margin-bottom:8px;transition:color 0.2s;}
+.footer-contact a:hover{color:var(--pri);}
+.footer-col h4{font-size:13px;font-weight:700;color:#fff;margin-bottom:16px;text-transform:uppercase;letter-spacing:1px;}
+.footer-col a{display:block;font-size:13px;color:#64748b;margin-bottom:8px;transition:color 0.2s;}
+.footer-col a:hover{color:var(--pri);}
+.footer-bottom{border-top:1px solid #1e293b;padding-top:24px;display:flex;justify-content:space-between;align-items:center;}
+.footer-bottom p{font-size:12px;color:#475569;}
+
+/* ── WHATSAPP FLOAT ── */
+.wa-float{position:fixed;bottom:24px;right:24px;width:56px;height:56px;background:#25d366;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:26px;box-shadow:0 4px 16px rgba(37,211,102,0.4);z-index:999;cursor:pointer;transition:all 0.2s;text-decoration:none;}
+.wa-float:hover{transform:scale(1.1);box-shadow:0 8px 24px rgba(37,211,102,0.5);}
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  .hero-inner{grid-template-columns:1fr;}
+  .hero h1{font-size:36px;}
+  .features-grid,.services-grid,.pricing-grid{grid-template-columns:1fr;}
+  .steps{grid-template-columns:1fr 1fr;}
+  .steps::before{display:none;}
+  .footer-grid{grid-template-columns:1fr 1fr;}
+  .trust-grid{grid-template-columns:1fr 1fr;}
+  .nav-links{display:none;}
+  .price-card.featured{transform:none;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <defs><linearGradient id="lg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#0ea5e9"/><stop offset="100%" style="stop-color:#10b981"/></linearGradient></defs>
+        <rect x="20" y="30" width="130" height="110" rx="6" fill="none" stroke="#e2e8f0" stroke-width="3" stroke-dasharray="6,3"/>
+        <rect x="28" y="38" width="50" height="45" rx="3" fill="#0ea5e920" stroke="#0ea5e9" stroke-width="2"/>
+        <rect x="83" y="38" width="60" height="45" rx="3" fill="#10b98120" stroke="#10b981" stroke-width="2"/>
+        <rect x="28" y="88" width="60" height="45" rx="3" fill="#f59e0b20" stroke="#f59e0b" stroke-width="2"/>
+        <rect x="93" y="88" width="50" height="45" rx="3" fill="#8b5cf620" stroke="#8b5cf6" stroke-width="2"/>
+        <line x1="170" y1="25" x2="95" y2="70" stroke="url(#lg)" stroke-width="3"/>
+        <circle cx="95" cy="70" r="4" fill="#0ea5e9"/>
+      </svg>
+      <span>NestingPro</span>
+    </div>
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#how">How It Works</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#services">Services</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <a href="https://wa.me/97431155162" class="nav-links nav-cta" target="_blank">💬 Get Started</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-badge">⚡ PROFESSIONAL LASER CAM SOFTWARE</div>
+      <h1>Nest Smarter.<br/>Cut <span>Faster.</span><br/>Waste Less.</h1>
+      <p>NestingPro is the all-in-one laser cutting CAM software for fiber laser machines. Import DXF files, auto-nest parts, generate CNC programs — all in one click.</p>
+      <div class="hero-btns">
+        <a href="#pricing" class="btn-hero btn-primary">🚀 Get NestingPro</a>
+        <a href="https://wa.me/97431155162" class="btn-hero btn-secondary" target="_blank">💬 Request Demo</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><div class="stat-num">100%</div><div class="stat-lbl">Offline</div></div>
+        <div class="stat"><div class="stat-num">DXF</div><div class="stat-lbl">Compatible</div></div>
+        <div class="stat"><div class="stat-num">LYNCA</div><div class="stat-lbl">Controller</div></div>
+        <div class="stat"><div class="stat-num">2kW</div><div class="stat-lbl">Fiber Laser</div></div>
+      </div>
+    </div>
+    <div class="hero-preview">
+      <div class="preview-header">
+        <div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div>
+        <span class="preview-title">NestingPro v1.0</span>
+      </div>
+      <div class="preview-svg-wrap">
+        <svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg" width="100%">
+          <!-- Sheet -->
+          <rect x="10" y="10" width="380" height="260" rx="4" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+          <!-- Parts row 1 -->
+          <rect x="20" y="20" width="110" height="70" rx="3" fill="#0ea5e920" stroke="#0ea5e9" stroke-width="1.5"/>
+          <circle cx="55" cy="42" r="8" fill="none" stroke="#0ea5e9" stroke-width="1.5"/>
+          <circle cx="95" cy="42" r="8" fill="none" stroke="#0ea5e9" stroke-width="1.5"/>
+          <line x1="20" y1="10" x2="14" y2="14" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="3,2"/>
+          <circle cx="14" cy="14" r="2.5" fill="#ef4444"/>
+
+          <rect x="140" y="20" width="110" height="70" rx="3" fill="#10b98120" stroke="#10b981" stroke-width="1.5"/>
+          <circle cx="175" cy="42" r="8" fill="none" stroke="#10b981" stroke-width="1.5"/>
+          <circle cx="215" cy="42" r="8" fill="none" stroke="#10b981" stroke-width="1.5"/>
+          <line x1="140" y1="20" x2="134" y2="14" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="3,2"/>
+          <circle cx="134" cy="14" r="2.5" fill="#ef4444"/>
+
+          <rect x="260" y="20" width="110" height="70" rx="3" fill="#f59e0b20" stroke="#f59e0b" stroke-width="1.5"/>
+          <circle cx="295" cy="42" r="8" fill="none" stroke="#f59e0b" stroke-width="1.5"/>
+          <circle cx="335" cy="42" r="8" fill="none" stroke="#f59e0b" stroke-width="1.5"/>
+
+          <!-- Parts row 2 -->
+          <rect x="20" y="105" width="110" height="70" rx="3" fill="#8b5cf620" stroke="#8b5cf6" stroke-width="1.5"/>
+          <circle cx="55" cy="127" r="8" fill="none" stroke="#8b5cf6" stroke-width="1.5"/>
+
+          <rect x="140" y="105" width="110" height="70" rx="3" fill="#ec489920" stroke="#ec4899" stroke-width="1.5"/>
+          <circle cx="175" cy="127" r="8" fill="none" stroke="#ec4899" stroke-width="1.5"/>
+
+          <rect x="260" y="105" width="110" height="70" rx="3" fill="#06b6d420" stroke="#06b6d4" stroke-width="1.5"/>
+
+          <!-- Parts row 3 -->
+          <rect x="20" y="190" width="110" height="70" rx="3" fill="#84cc1620" stroke="#84cc16" stroke-width="1.5"/>
+          <rect x="140" y="190" width="110" height="70" rx="3" fill="#0ea5e920" stroke="#0ea5e9" stroke-width="1.5"/>
+
+          <!-- Laser beam effect -->
+          <line x1="380" y1="0" x2="260" y2="105" stroke="#38bdf8" stroke-width="1" opacity="0.3"/>
+          <circle cx="260" cy="105" r="3" fill="#38bdf8" opacity="0.8">
+            <animate attributeName="opacity" values="0.8;0.2;0.8" dur="1.5s" repeatCount="indefinite"/>
+          </circle>
+
+          <!-- UI elements -->
+          <rect x="10" y="250" width="380" height="20" rx="0" fill="#0f172a"/>
+          <text x="20" y="263" fill="#64748b" font-size="9" font-family="monospace">9 parts • 14 holes • Sheet 22% • 00:03:42 est.</text>
+          <circle cx="365" cy="260" r="5" fill="#10b981"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features-bg" id="features">
+  <div class="section-inner">
+    <div class="text-center" style="margin-bottom:0">
+      <div class="section-badge">FEATURES</div>
+      <h2 class="section-title">Everything You Need to Cut Smarter</h2>
+      <p class="section-sub text-center">Designed for fiber laser operators — no CAM experience needed.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feat-card">
+        <div class="feat-icon">📂</div>
+        <div class="feat-title">DXF Import</div>
+        <div class="feat-desc">Import any DXF file from AutoCAD or any CAD software. Supports nested blocks, LWPOLYLINE, circles, and arcs.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">🔲</div>
+        <div class="feat-title">Auto-Nesting</div>
+        <div class="feat-desc">Automatically arrange multiple parts on the sheet with configurable gap, margin, and start position. Minimize material waste.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">⚡</div>
+        <div class="feat-title">PRG Generation</div>
+        <div class="feat-desc">Generate LYNCA CNC controller PRG files instantly. Correct G-codes, pierce points, lead-ins, and G827 lead-outs.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">🖱️</div>
+        <div class="feat-title">Interactive Preview</div>
+        <div class="feat-desc">Click and drag parts to reposition. Rotate parts 90°. Zoom and pan the sheet preview. What you see is what gets cut.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">✂️</div>
+        <div class="feat-title">Line Cutting Mode</div>
+        <div class="feat-desc">Auto-detects strip/slitting files. Filters boundary lines, generates correct pierce and lead-out for each line. Click to mark done.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">📌</div>
+        <div class="feat-title">Unitary Mode</div>
+        <div class="feat-desc">Use exact DXF coordinates without nesting. Perfect for single parts already positioned for the machine origin.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">🎯</div>
+        <div class="feat-title">Machine Origin</div>
+        <div class="feat-desc">Select your machine origin (Top-Left, Bottom-Left, Top-Right, Bottom-Right). Coordinates auto-converted in PRG output.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">⏱️</div>
+        <div class="feat-title">Cut Time Estimation</div>
+        <div class="feat-desc">Accurate time estimates based on 2kW fiber laser speed tables for Steel, Stainless, Aluminum, Galvanized per thickness.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">💾</div>
+        <div class="feat-title">100% Offline</div>
+        <div class="feat-desc">Single HTML file. No installation, no internet, no cloud. Works on any laptop. Share via USB or email. Auto-incremental file naming.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="section-inner">
+    <div class="text-center">
+      <div class="section-badge">HOW IT WORKS</div>
+      <h2 class="section-title">From DXF to Cutting in 4 Steps</h2>
+      <p class="section-sub text-center">NestingPro simplifies your workflow from drawing to finished parts.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-title">Import DXF</div>
+        <div class="step-desc">Drop your AutoCAD DXF file. Choose Nesting, Unitary, or Line Cutting mode.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-title">Set Quantities</div>
+        <div class="step-desc">Set how many of each part you need. Add multiple different parts to one sheet.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-title">Auto-Nest</div>
+        <div class="step-desc">Click Auto-Nest. Parts arranged automatically. Drag to fine-tune positions or rotate.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-title">Generate & Cut</div>
+        <div class="step-desc">Generate PRG file. Download as 001.prg. Load on LYNCA controller and cut!</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing-bg" id="pricing">
+  <div class="section-inner">
+    <div class="text-center">
+      <div class="section-badge" style="background:#f59e0b">PRICING</div>
+      <h2 class="section-title" style="color:#fff">Simple, Affordable Pricing</h2>
+      <p class="section-sub text-center" style="color:#94a3b8">No hidden fees. No subscriptions surprises. Cancel anytime.</p>
+    </div>
+    <div class="pricing-grid">
+      <!-- Annual -->
+      <div class="price-card">
+        <div class="price-name">Annual</div>
+        <div class="price-amt">$299</div>
+        <div class="price-per">per year / per machine</div>
+        <ul class="price-features">
+          <li>Full NestingPro software</li>
+          <li>All updates for 1 year</li>
+          <li>Email & WhatsApp support</li>
+          <li>1 machine license</li>
+          <li>PDF reports</li>
+        </ul>
+        <a href="https://wa.me/97431155162?text=Hi, I want to buy NestingPro Annual license ($299/year)" class="btn-price btn-price-outline" target="_blank">Buy Annual →</a>
+      </div>
+      <!-- Lifetime FEATURED -->
+      <div class="price-card featured">
+        <div class="price-badge">⭐ BEST VALUE</div>
+        <div class="price-name">Lifetime</div>
+        <div class="price-amt">$600</div>
+        <div class="price-per">one-time payment</div>
+        <ul class="price-features">
+          <li>Full NestingPro software</li>
+          <li>Lifetime updates</li>
+          <li>Priority support</li>
+          <li>1 machine license</li>
+          <li>PDF reports</li>
+          <li>Future features included</li>
+        </ul>
+        <a href="https://wa.me/97431155162?text=Hi, I want to buy NestingPro Lifetime license ($600)" class="btn-price btn-price-white" target="_blank">Buy Lifetime →</a>
+      </div>
+      <!-- Enterprise -->
+      <div class="price-card">
+        <div class="price-name">Enterprise</div>
+        <div class="price-amt">Custom</div>
+        <div class="price-per">multi-machine / company</div>
+        <ul class="price-features">
+          <li>Unlimited machines</li>
+          <li>Custom features</li>
+          <li>On-site training</li>
+          <li>Custom controller support</li>
+          <li>SLA support agreement</li>
+          <li>Source code option</li>
+        </ul>
+        <a href="https://wa.me/97431155162?text=Hi, I need Enterprise pricing for NestingPro" class="btn-price btn-price-outline" target="_blank">Contact Us →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-inner">
+    <div class="text-center">
+      <div class="section-badge">SERVICES</div>
+      <h2 class="section-title">Industrial Automation Services</h2>
+      <p class="section-sub text-center">Beyond software — we offer complete industrial automation solutions for manufacturing and fabrication facilities.</p>
+    </div>
+    <div class="services-grid">
+      <div class="svc-card">
+        <div class="svc-icon">🖥️</div>
+        <div>
+          <div class="svc-title">Custom CNC Software</div>
+          <div class="svc-desc">Post-processors, CAM software, and DXF converters for any CNC controller. Fanuc, Siemens, LYNCA, and more.</div>
+        </div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-icon">⚙️</div>
+        <div>
+          <div class="svc-title">PLC Programming</div>
+          <div class="svc-desc">Industrial PLC programming and automation for manufacturing lines, conveyor systems, and machine control.</div>
+        </div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-icon">🔩</div>
+        <div>
+          <div class="svc-title">Machine Integration</div>
+          <div class="svc-desc">Connect machines, sensors, and systems. SCADA, HMI, and data acquisition for smart manufacturing.</div>
+        </div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-icon">📐</div>
+        <div>
+          <div class="svc-title">CAD/CAM Consulting</div>
+          <div class="svc-desc">DXF preparation, nesting optimization, and cutting parameter consulting for laser, plasma, and waterjet machines.</div>
+        </div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-icon">🏭</div>
+        <div>
+          <div class="svc-title">Factory Automation</div>
+          <div class="svc-desc">End-to-end automation solutions for fabrication shops. From design to production — we handle the technology.</div>
+        </div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-icon">📱</div>
+        <div>
+          <div class="svc-title">Custom Software Development</div>
+          <div class="svc-desc">Bespoke industrial software — ERP integration, production tracking, quality control, and reporting systems.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST -->
+<section class="trust-bg" id="why">
+  <div class="section-inner">
+    <div class="text-center">
+      <div class="section-badge">WHY NESTINGPRO</div>
+      <h2 class="section-title">Built by Fabricators, for Fabricators</h2>
+    </div>
+    <div class="trust-grid">
+      <div class="trust-item">
+        <div class="trust-icon">🏆</div>
+        <div class="trust-title">Real Machine Tested</div>
+        <div class="trust-desc">Developed and tested on actual Loyalmak fiber laser machines with LYNCA controllers</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">💻</div>
+        <div class="trust-title">No Installation</div>
+        <div class="trust-desc">Single HTML file. Open in any browser. Share via USB. Works on any Windows, Mac, or Linux laptop</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">🔒</div>
+        <div class="trust-title">Your Data Stays Local</div>
+        <div class="trust-desc">No cloud, no servers, no account needed. Your designs and data never leave your computer</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">🌍</div>
+        <div class="trust-title">Gulf Region Focus</div>
+        <div class="trust-desc">Built in Qatar, serving fabrication shops across the Gulf — Qatar, KSA, UAE, Kuwait, and beyond</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-bg" id="contact">
+  <div class="cta-inner">
+    <h2>Ready to Cut Smarter?</h2>
+    <p>Get NestingPro today or contact us for a free demo. Our team is ready to help you optimize your laser cutting workflow.</p>
+    <div class="cta-btns">
+      <a href="https://wa.me/97431155162?text=Hi, I want a demo of NestingPro" class="btn-cta-white" target="_blank">💬 WhatsApp Demo</a>
+      <a href="https://wa.me/97431155162?text=Hi, I want to buy NestingPro Lifetime license ($600)" class="btn-cta-outline" target="_blank">🚀 Buy Now — $600</a>
+    </div>
+    <p style="margin-top:24px;font-size:13px;opacity:0.7">
+      📞 +974 3115 5162 &nbsp;|&nbsp; 🏢 IMWS — International Metal Working Solutions &nbsp;|&nbsp; 📍 Qatar
+    </p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">
+          <svg width="32" height="32" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <rect x="20" y="30" width="130" height="110" rx="6" fill="none" stroke="#334155" stroke-width="3" stroke-dasharray="6,3"/>
+            <rect x="28" y="38" width="50" height="45" rx="3" fill="#0ea5e930" stroke="#0ea5e9" stroke-width="2"/>
+            <rect x="83" y="38" width="60" height="45" rx="3" fill="#10b98130" stroke="#10b981" stroke-width="2"/>
+            <rect x="28" y="88" width="60" height="45" rx="3" fill="#f59e0b30" stroke="#f59e0b" stroke-width="2"/>
+            <rect x="93" y="88" width="50" height="45" rx="3" fill="#8b5cf630" stroke="#8b5cf6" stroke-width="2"/>
+            <line x1="170" y1="25" x2="95" y2="70" stroke="#0ea5e9" stroke-width="2"/>
+            <circle cx="95" cy="70" r="3" fill="#0ea5e9"/>
+          </svg>
+          <span>NestingPro</span>
+        </div>
+        <p class="footer-desc">Professional laser CAM software for fiber laser operators. Import DXF, auto-nest, generate CNC programs. Built for LYNCA controllers.</p>
+        <div class="footer-contact">
+          <a href="https://wa.me/97431155162" target="_blank">💬 +974 3115 5162</a>
+          <a href="mailto:info@imws.qa">📧 info@imws.qa</a>
+          <a href="#">📍 Qatar — Gulf Region</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <a href="#features">Features</a>
+        <a href="#how">How It Works</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#why">Why NestingPro</a>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <a href="#services">CNC Software</a>
+        <a href="#services">PLC Programming</a>
+        <a href="#services">Machine Integration</a>
+        <a href="#services">CAD/CAM Consulting</a>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <a href="https://wa.me/97431155162" target="_blank">WhatsApp</a>
+        <a href="#pricing">Buy License</a>
+        <a href="#contact">Request Demo</a>
+        <a href="#">Support</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 IMWS — International Metal Working Solutions. All rights reserved.</p>
+      <p>Designed & developed by Abdalla Ajami</p>
+    </div>
+  </div>
+</footer>
+
+<!-- WHATSAPP FLOAT -->
+<a href="https://wa.me/97431155162?text=Hi, I'm interested in NestingPro" class="wa-float" target="_blank">💬</a>
+
+<script>
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    const target=document.querySelector(a.getAttribute('href'));
+    if(target){e.preventDefault();target.scrollIntoView({behavior:'smooth',block:'start'});}
+  });
+});
+
+// Nav scroll effect
+window.addEventListener('scroll',()=>{
+  const nav=document.querySelector('nav');
+  nav.style.boxShadow=window.scrollY>50?'0 4px 24px rgba(0,0,0,0.08)':'none';
+});
+
+// Animate elements on scroll
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)';}});
+},{threshold:0.1});
+document.querySelectorAll('.feat-card,.svc-card,.price-card,.trust-item,.step').forEach(el=>{
+  el.style.opacity='0';el.style.transform='translateY(20px)';el.style.transition='opacity 0.5s,transform 0.5s';
+  observer.observe(el);
+});
+</script>
+</body>
+</html>
